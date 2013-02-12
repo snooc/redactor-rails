@@ -29,4 +29,8 @@ module RedactorRails
   def self.document_model
     RedactorRails::Document
   end
+
+  def self.authentication_before_filter
+    'authenticate_admin_user!'.to_sym
+  end
 end

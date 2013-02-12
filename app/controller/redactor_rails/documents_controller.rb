@@ -1,5 +1,5 @@
 class RedactorRails::DocumentsController < ApplicationController
-  before_filter :authenticate_user! if RedactorRails.document_model.new.respond_to?(:user_id)
+  before_filter RedactorRails.authentication_before_filter if RedactorRails.document_model.new.respond_to?(:user_id)
 
   def index
     @documents = RedactorRails.document_model.where(

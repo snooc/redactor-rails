@@ -1,5 +1,5 @@
 class RedactorRails::PicturesController < ApplicationController
-  before_filter :authenticate_user! if RedactorRails.picture_model.new.respond_to?(:user_id)
+  before_filter RedactorRails.authentication_before_filter if RedactorRails.picture_model.new.respond_to?(:user_id)
 
   def index
     @pictures = RedactorRails.picture_model.where(
