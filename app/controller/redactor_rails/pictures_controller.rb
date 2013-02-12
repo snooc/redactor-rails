@@ -1,9 +1,9 @@
 class RedactorRails::PicturesController < ApplicationController
-  before_filter RedactorRails.authentication_before_filter if RedactorRails.picture_model.new.respond_to?(:user_id)
+  before_filter :redactor_authenticate_user! if RedactorRails.picture_model.new.respond_to?(:user_id)
 
   def index
     @pictures = RedactorRails.picture_model.where(
-        RedactorRails.picture_model.new.respond_to?(:user_id) ? { user_id: current_user.id } : { })
+        RedactorRails.picture_model.new.respond_to?(:user_id) ? { user_id: redactor_current_user.id } : { })
     render :json => @pictures.to_json
   end
 
@@ -13,8 +13,8 @@ class RedactorRails::PicturesController < ApplicationController
     file = params[:file]
     @picture.data = RedactorRails::Http.normalize_param(file, request)
     if @picture.respond_to?(:user_id)
-      @picture.user = current_user
-      @picture.assetable = current_user
+      @picture.user = redactor_current_user
+      @picture.assetable = redactor_current_user
     end
 
     if @picture.save

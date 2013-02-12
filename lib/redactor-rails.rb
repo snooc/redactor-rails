@@ -7,6 +7,7 @@ module RedactorRails
   FILE_TYPES = ['application/msword', 'application/pdf', 'text/plain', 'text/rtf', 'application/vnd.ms-excel']
 
   autoload :Http, 'redactor-rails/http'
+  autoload :Devise, 'redactor-rails/devise'
 
   module Backend
     autoload :CarrierWave, 'redactor-rails/backend/carrierwave'
